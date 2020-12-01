@@ -1,16 +1,24 @@
-
+// Initializing variables
 int gas = A0;
 int sensorValue; 
 
 int analog_value;
 float input_voltage = 0.0;
 
+// Importing DHT library for Arduino
 #include "DHT.h"
+
+// Defining pin for DHT sensor on Arduino board
 #define DHTPIN A2
+
+// Defining DHT11 sensor used in project to detect temperature and humidity
 #define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
+
+// Variables to store values for humidity and temperature
 float h,t;
 
+// Function to read sensor value of MQ9 gas sensor
 void Gas_read()
 {
   //Average   
@@ -22,6 +30,7 @@ void Gas_read()
   Serial.print("<C");Serial.print(sensorValue);Serial.print(">");
 }
 
+// Function to read value from Solar cell in Volts
 void read_solar()
 {
    analog_value = analogRead(A1);
@@ -35,7 +44,7 @@ void read_solar()
    Serial.print("<D");Serial.print(input_voltage);Serial.print(">");
 }
 
-
+// Function to read values of temperature and humidity from DHT11 
 void temp_read()
 {
   h = dht.readHumidity();
@@ -45,6 +54,7 @@ void temp_read()
   Serial.print("<B");Serial.print(h);Serial.print(">");
 }
  
+
 void setup() 
 { 
   Serial.begin(9600);
