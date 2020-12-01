@@ -1,24 +1,21 @@
-//https://script.google.com/macros/s/AKfycbxUXAdux83G4-2aaSfJnjPu3n_pP5K78dPls5_a_sQCI_IMkMxs/exec 
-//https://script.google.com/macros/s/AKfycbzgrv1weuZMoS-1Q8sFM0Zg8vw0SyRWDVSyhkhT6PMhd3WsiWvG/exec 
-
+// ESP8266 library
 #include <ESP8266WiFi.h>
 #include <WiFiClientSecure.h>
 
-const char* ssid = "Tarun";    //your wifi network
-const char* password = "123456789";     //yout wifi pasword
-const char* host = "script.google.com";
+const char* ssid = "//Network_SSID";     // Wifi network
+const char* password = "//Password";     // Wifi pasword
+const char* host = "script.google.com";  
 const int httpsPort = 443;
 
 WiFiClientSecure client;
 
 const char* fingerprint = "46 B2 C3 44 9C 59 09 8B 01 B6 F8 BD 4C FB 00 74 91 2F EF F6";
 
-String GAS_ID = "AKfycbxUXAdux83G4-2aaSfJnjPu3n_pP5K78dPls5_a_sQCI_IMkMxs";     //spreadsheet id
-
+String GAS_ID = "AKfycbxUXAdux83G4-2aaSfJnjPu3n_pP5K78dPls5_a_sQCI_IMkMxs";     //Google Spreadsheet ID to store sensor readings
 
 float temp=25.4, humi=52.0, volt1=2.3;
 int gas1=100;
-char cmd_arr1[20];
+char cmd_arr1[20];    // Character Array to obtain command
 int cmd_count1;
 
 void setup() 
@@ -27,6 +24,7 @@ void setup()
   Serial.begin(9600); 
   Serial.println();
 
+  // Connecting to Wifi network with ssid and password provided above
   Serial.print("connecting to ");
   Serial.println(ssid);
   WiFi.mode(WIFI_STA);
@@ -38,6 +36,8 @@ void setup()
   Serial.println("");
   Serial.println("WiFi connected");
   Serial.println("IP address: ");
+  
+  // Printing IP address after successful connection
   Serial.println(WiFi.localIP());
 
   client.setInsecure();
@@ -65,11 +65,11 @@ void serial_get_command()
       {
         cmd_count1--;
         cmd_arr1[cmd_count1] = '\0';
-        if(cmd_arr1[0]=='A'){cmd_arr1[0]='0';temp = atof(cmd_arr1);} 
-        else if(cmd_arr1[0]=='B'){cmd_arr1[0]='0';humi = atof(cmd_arr1);}
-        else if(cmd_arr1[0]=='C'){cmd_arr1[0]='0';gas1 = atof(cmd_arr1);} 
-        else if(cmd_arr1[0]=='D'){cmd_arr1[0]='0';volt1 = atof(cmd_arr1);}
-        else if(cmd_arr1[0]=='E'){cmd_arr1[0]='0';sendData(temp, humi, gas1, volt1);}
+        if(cmd_arr1[0]=='A'){cmd_arr1[0]='0';temp = atof(cmd_arr1);}      // For temperature 
+        else if(cmd_arr1[0]=='B'){cmd_arr1[0]='0';humi = atof(cmd_arr1);} // For Humidity
+        else if(cmd_arr1[0]=='C'){cmd_arr1[0]='0';gas1 = atof(cmd_arr1);}   // For MQ9 gas sensor value
+        else if(cmd_arr1[0]=='D'){cmd_arr1[0]='0';volt1 = atof(cmd_arr1);}  // For solar cell reading
+        else if(cmd_arr1[0]=='E'){cmd_arr1[0]='0';sendData(temp, humi, gas1, volt1);}   // Command to send data to Google spreadsheet
       }
     }
   }
