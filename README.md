@@ -28,7 +28,7 @@ An IOT project using embedded systems to make the sensor values available global
 
 <h2> Schematic Diagram </h2> 
 
-
+![plot](https://github.com/tarun2k/Weather-Monitoring-IoT/issues/1#issue-769646386)
 
 <h2> Deploying and Testing </h2>
 
