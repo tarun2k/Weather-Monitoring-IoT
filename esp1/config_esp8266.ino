@@ -33,6 +33,7 @@ void setup()
     delay(500);
     Serial.print(".");
   }
+  
   Serial.println("");
   Serial.println("WiFi connected");
   Serial.println("IP address: ");
@@ -92,10 +93,13 @@ void sendData(int tem, int hum , int gas, int volt)
   }
 
   if (client.verify(fingerprint, host)) {
-  Serial.println("certificate matches");
-  } else {
-  Serial.println("certificate doesn't match");
+    Serial.println("certificate matches");
+  } 
+  
+  else {
+    Serial.println("certificate doesn't match");
   }
+  
   String string_temperature =  String(tem, DEC); 
   String string_humidity =  String(hum, DEC); 
   String string_Gas =  String(gas, DEC); 
@@ -112,18 +116,22 @@ void sendData(int tem, int hum , int gas, int volt)
 
   Serial.println("request sent");
   while (client.connected()) {
-  String line = client.readStringUntil('\n');
-  if (line == "\r") {
-    Serial.println("headers received");
-    break;
+    String line = client.readStringUntil('\n');
+    if (line == "\r") {
+      Serial.println("headers received");
+      break;
+    }
   }
-  }
+  
   String line = client.readStringUntil('\n');
   if (line.startsWith("{\"state\":\"success\"")) {
-  Serial.println("esp8266/Arduino CI successfull!");
-  } else {
-  Serial.println("esp8266/Arduino CI has failed");
+    Serial.println("esp8266/Arduino CI successfull!");
+  } 
+  
+  else {
+    Serial.println("esp8266/Arduino CI has failed");
   }
+  
   Serial.println("reply was:");
   Serial.println("==========");
   Serial.println(line);
