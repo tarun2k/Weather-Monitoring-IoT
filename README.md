@@ -1,7 +1,5 @@
 <h1>IoT based Weather Monitoring System </h1>
 
-An IOT project using embedded systems to make the sensor values available globally using Google Sheets.
-
 <h2>The following are the requirements for this project:</h2>
 
 <h2> Software Requirements: </h2>
